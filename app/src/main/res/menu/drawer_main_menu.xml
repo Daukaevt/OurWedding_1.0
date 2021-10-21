@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item android:title="@string/menuUs">
+        <menu>
+            <item
+                android:title="@string/weAre"
+                android:id="@+id/weAre"
+                />
+            <item
+                android:title="@string/acquaintance"
+                android:id="@+id/acqnts"
+                />
+            <item
+                android:title="@string/moments"
+                android:id="@+id/mmts"
+                />
+            <item
+                android:title="@string/vips"
+                android:id="@+id/vips"
+                />
+        </menu>
+    </item>
+    <item android:title="@string/menuEvent">
+        <menu>
+            <item
+                android:title="@string/eventWhere"
+                android:id="@+id/where"
+                />
+            <item
+                android:title="@string/eventWhen"
+                android:id="@+id/when"
+                />
+            <item
+                android:title="@string/eventSecondDay"
+                android:id="@+id/scnd"
+                />
+            <item
+                android:title="@string/wishes"
+                android:id="@+id/wshs"
+                />
+        </menu>
+    </item>
+    <item android:title="@string/acc">
+        <menu>
+            <item
+                android:title="@string/signUp"
+                android:id="@+id/signUp"
+                />
+            <item
+                android:title="@string/signIn"
+                android:id="@+id/signIn"
+                />
+            <item
+                android:title="@string/signOut"
+                android:id="@+id/signOut"
+                />
+        </menu>
+    </item>
+
+
+</menu>

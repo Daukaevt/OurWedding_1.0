@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">OurWed</string>
+    <!--DrawerMenu-->
+    <string name="menuUs">Про нас:</string>
+    <string name="weAre">Это мы!</string>
+    <string name="acquaintance">Как мы познакомились.</string>
+    <string name="moments">Памятные моменты.</string>
+    <string name="vips">Те, кто очень важен для нас.</string>
+    <string name="menuEvent">Про свадьбу</string>
+    <string name="eventWhere">Где?</string>
+    <string name="eventWhen">Когда?</string>
+    <string name="eventSecondDay">Второй день.</string>
+    <string name="wishes">Пожелания молодым.</string>
+    <string name="acc">Аккаунт.</string>
+    <string name="signUp">Регистрация.</string>
+    <string name="signIn">Вход.</string>
+    <string name="signOut">Выход.</string>
+
+</resources>
