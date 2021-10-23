@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "753288694885",
+    "project_id": "ourwed-c2a46",
+    "storage_bucket": "ourwed-c2a46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753288694885:android:5dee8736dd6368cae84a8c",
+        "android_client_info": {
+          "package_name": "com.wixsite.mupbam1.resume.ourwed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753288694885-e57sd6t3o30t6t8hrs7j6cng5kkia2kp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLiyEB6WKYH4xweP-fcmOCA5Fc1VbmhvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753288694885-e57sd6t3o30t6t8hrs7j6cng5kkia2kp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
