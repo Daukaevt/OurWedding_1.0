@@ -23,6 +23,8 @@
     <string name="btnReg">Зарегистрироваться</string>
     <string name="btnEnter">Войти</string>
     <string name="btnForgot">Забыли пароль?</string>
+    <string name="emailResetPasword">На Ваш Email отправлено письмо с паролем от учетной записи</string>
+    <string name="emailNotFound">Введите Email для отправки пароля</string>
     <string name="signUpEror">Не удалось зарегистрироваться</string>
     <string name="signInEror">Не удалось войти</string>
     <string name="sendVerificationEmailDone">На Вашу почту было отправленно письмо для подтверждения аккаунта.
