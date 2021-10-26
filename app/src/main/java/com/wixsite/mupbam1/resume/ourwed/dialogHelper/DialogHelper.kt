@@ -11,7 +11,7 @@ import com.wixsite.mupbam1.resume.ourwed.databinding.SignDialogBinding
 
 class DialogHelper(act:MainActivity) {
     private val act=act
-    private val accountHelper=AccountHelper(act)
+    val accountHelper=AccountHelper(act)
     fun createSignDialog(index: Int){
         val builder=AlertDialog.Builder(act)
         val binding=SignDialogBinding.inflate(act.layoutInflater)
@@ -23,6 +23,9 @@ class DialogHelper(act:MainActivity) {
         }
         binding.btForgot.setOnClickListener {
             setOnClickResetPasword(binding,dialog)
+        }
+        binding.btGoogleSignIn.setOnClickListener {
+            accountHelper.signInWithGoogle()
         }
         dialog.show()
     }
@@ -49,6 +52,7 @@ class DialogHelper(act:MainActivity) {
 
         }else{
             accountHelper.signInWithEmail(binding.edEmail.text.toString(), binding.edPasword.text.toString())
+
 
         }
 

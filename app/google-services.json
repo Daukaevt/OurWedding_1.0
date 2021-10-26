@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "753288694885-92s80f56u8osb9veih15di41s8rdbcc6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wixsite.mupbam1.resume.ourwed",
+            "certificate_hash": "fcebe70e2e58daa43fed76b92a86bff6d48dccf8"
+          }
+        },
+        {
           "client_id": "753288694885-e57sd6t3o30t6t8hrs7j6cng5kkia2kp.apps.googleusercontent.com",
           "client_type": 3
         }
