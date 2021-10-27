@@ -7,10 +7,7 @@ import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import com.wixsite.mupbam1.resume.ourwed.MainActivity
 import com.wixsite.mupbam1.resume.ourwed.R
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
@@ -31,14 +28,15 @@ class AccountHelper(act:MainActivity) {
                         if (task.exception is FirebaseAuthUserCollisionException){
                             val exception=task.exception as FirebaseAuthUserCollisionException
                             if (exception.errorCode==DialogConst.ERROR_EMAIL_ALREADY_IN_USE){
-                                Toast.makeText(act, "ERROR_EMAIL_ALREADY_IN_USE", Toast.LENGTH_LONG).show()
+                                //Link Email
+                                linkEmailToGoogle(email, password)
                             }
-                        }else if (task.exception is FirebaseAuthInvalidCredentialsException){
-                            val exception=task.exception as FirebaseAuthInvalidCredentialsException
-                            if (exception.errorCode==DialogConst.ERROR_INVALID_EMAIL){
-                                Toast.makeText(act, "ERROR_INVALID_EMAIL", Toast.LENGTH_LONG).show()
+                        }
+                        else if (task.exception is FirebaseAuthWeakPasswordException){
+                            val exception=task.exception as FirebaseAuthWeakPasswordException
+                            if (exception.errorCode==DialogConst.ERROR_WEAK_PASSWORD){
+                               Toast.makeText(act, "ERROR_WEAK_PASSWORD", Toast.LENGTH_LONG).show()
                             }
-
                         }
                     }
             }
@@ -58,6 +56,12 @@ class AccountHelper(act:MainActivity) {
                         if (exception.errorCode == DialogConst.ERROR_WRONG_PASSWORD) {
                             Toast.makeText(act, "ERROR_WRONG_PASSWORD", Toast.LENGTH_LONG).show()
                         }
+                    }else if (task.exception is FirebaseAuthInvalidUserException) {
+                        val exception = task.exception as FirebaseAuthInvalidUserException
+                        //Log.d("MyLog","Exception: ${exception.errorCode}")
+                        if (exception.errorCode == DialogConst.ERROR_USER_NOT_FOUND) {
+                            Toast.makeText(act, "ERROR_USER_NOT_FOUND", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
@@ -68,15 +72,28 @@ class AccountHelper(act:MainActivity) {
         val intent=googleSignInClient.signInIntent
         act.startActivityForResult(intent, DialogConst.signInRequestCode)
     }
+    fun signOutWithGoogle(){
+        getSignInClient().signOut()
+    }
     fun signInFirebaseWithGoogle(token:String){
         val credential=GoogleAuthProvider.getCredential(token,null)
         act.mAuth.signInWithCredential(credential).addOnCompleteListener { task->
             if (task.isSuccessful){
                 Toast.makeText(act, "sign in done", Toast.LENGTH_LONG).show()
                 act.uiUpdate(task.result?.user)
-            }else{
-
             }
+        }
+    }
+    private fun linkEmailToGoogle(email: String,password: String){
+        val credential=EmailAuthProvider.getCredential(email,password)
+        if (act.mAuth.currentUser!=null) {
+            act.mAuth.currentUser?.linkWithCredential(credential)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(act, R.string.linkEmailToGoogle, Toast.LENGTH_LONG).show()
+                }
+            }
+        }else{
+            Toast.makeText(act, R.string.EnterWithGoogle,Toast.LENGTH_LONG).show()
         }
     }
     private fun sendEmailVerification(user:FirebaseUser){

@@ -31,5 +31,8 @@
     Пожалуйста, перейдите по ссылке в письме.</string>
     <string name="sendVerificationEmailError">Не удалось отправить email для поддтверждения.</string>
     <string name="not_reg">Войдите или зарегистрируйтесь</string>
+    <string name="linkEmailToGoogle">Аккаунт соединён успешно</string>
+    <string name="EnterWithGoogle">У Вас уже есть Google-аккаунт.
+        Пожалуйста, войдите через него и пройдите повторную регистрацию через Email.</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -15,7 +16,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.wixsite.mupbam1.resume.ourwed.actEvent.NewEvent
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
+import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityNewEventBinding
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogHelper
 
@@ -29,6 +32,19 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId==R.id.newEvent){
+            val intent=Intent(this, NewEvent::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -53,6 +69,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         uiUpdate(mAuth.currentUser)
     }
     fun init(){
+        setSupportActionBar(binding.mainContent.toolbar)
         val toggle=ActionBarDrawerToggle(
             this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)

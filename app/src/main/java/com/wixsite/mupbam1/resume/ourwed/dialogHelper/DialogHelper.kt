@@ -1,6 +1,7 @@
 package com.wixsite.mupbam1.resume.ourwed.dialogHelper
 
 import android.app.AlertDialog
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.snapshot.Index
@@ -26,6 +27,7 @@ class DialogHelper(act:MainActivity) {
         }
         binding.btGoogleSignIn.setOnClickListener {
             accountHelper.signInWithGoogle()
+            dialog.dismiss()
         }
         dialog.show()
     }
@@ -49,13 +51,9 @@ class DialogHelper(act:MainActivity) {
         dialog?.dismiss()
         if (index==DialogConst.Sign_Up_State){
             accountHelper.signUpWithEmail(binding.edEmail.text.toString(), binding.edPasword.text.toString())
-
         }else{
             accountHelper.signInWithEmail(binding.edEmail.text.toString(), binding.edPasword.text.toString())
-
-
         }
-
     }
 
     private fun setDialogState(index: Int, binding: SignDialogBinding) {
