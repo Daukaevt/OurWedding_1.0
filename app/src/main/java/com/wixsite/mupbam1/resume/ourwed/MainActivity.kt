@@ -21,6 +21,7 @@ import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityNewEventBinding
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogHelper
+import com.wixsite.mupbam1.resume.ourwed.utils.ImagePicker
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
@@ -32,11 +33,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+        //NewEvent()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId==R.id.newEvent){
-            val intent=Intent(this, NewEvent::class.java)
+            //вернуть на NewEvent
+            val intent=Intent(this, NewEvent2::class.java)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)

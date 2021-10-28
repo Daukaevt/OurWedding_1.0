@@ -7,6 +7,8 @@
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.20871794871794871" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.20871794871794871" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout/activity_new_event.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout/activity_new_event2.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/main_content.xml" value="0.19282051282051282" />
         <entry key="app/src/main/res/layout/main_menu.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/nav_header_mine.xml" value="0.19282051282051282" />
