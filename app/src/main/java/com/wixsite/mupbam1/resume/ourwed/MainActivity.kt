@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId==R.id.newEvent){
             //вернуть на NewEvent
-            val intent=Intent(this, NewEvent2::class.java)
+            val intent=Intent(this, NewEvent::class.java)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)

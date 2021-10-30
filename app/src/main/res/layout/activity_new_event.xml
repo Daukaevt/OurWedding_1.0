@@ -6,50 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".actEvent.NewEvent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/btChooseImg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Choose Image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+    <Button
+        android:id="@+id/btUploadImg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Upload Image"
+        app:layout_constraintEnd_toEndOf="@+id/btChooseImg"
+        app:layout_constraintStart_toStartOf="@+id/btChooseImg"
+        app:layout_constraintTop_toBottomOf="@+id/btChooseImg" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpWeAre"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@android:drawable/editbox_dropdown_light_frame"
-                android:padding="10dp">
-
-            </androidx.viewpager2.widget.ViewPager2>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpMet"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@android:drawable/editbox_dropdown_light_frame"
-                android:padding="10dp">
-
-            </androidx.viewpager2.widget.ViewPager2>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpMoments"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@android:drawable/editbox_dropdown_light_frame"
-                android:padding="10dp" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpVips"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@android:drawable/editbox_dropdown_light_frame"
-                android:padding="10dp" />
-        </LinearLayout>
-    </ScrollView>
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/btChooseImg"
+        app:layout_constraintStart_toStartOf="@+id/btChooseImg"
+        app:layout_constraintTop_toBottomOf="@+id/btUploadImg"
+        app:srcCompat="@drawable/ic_launcher_background" />
 </androidx.constraintlayout.widget.ConstraintLayout>
