@@ -37,4 +37,14 @@
         app:layout_constraintStart_toStartOf="@+id/btChooseImg"
         app:layout_constraintTop_toBottomOf="@+id/btUploadImg"
         app:srcCompat="@drawable/ic_launcher_background" />
+
+    <Button
+        android:id="@+id/btDownloadFile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Download File"
+        app:layout_constraintEnd_toEndOf="@+id/btChooseImg"
+        app:layout_constraintStart_toStartOf="@+id/btChooseImg"
+        app:layout_constraintTop_toBottomOf="@+id/img" />
 </androidx.constraintlayout.widget.ConstraintLayout>

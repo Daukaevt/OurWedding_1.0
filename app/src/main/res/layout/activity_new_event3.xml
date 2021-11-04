@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".NewEvent3">
+
+    <ImageView
+        android:id="@+id/ivUser"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/ivUser"
+        app:layout_constraintStart_toStartOf="@+id/ivUser"
+        app:layout_constraintTop_toBottomOf="@+id/ivUser" />
+
+    <Button
+        android:id="@+id/btUpload"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Upload"
+        app:layout_constraintEnd_toEndOf="@+id/ivUser"
+        app:layout_constraintStart_toStartOf="@+id/ivUser"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+
+    <Button
+        android:id="@+id/btdownload"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Download"
+        app:layout_constraintEnd_toEndOf="@+id/ivUser"
+        app:layout_constraintStart_toStartOf="@+id/ivUser"
+        app:layout_constraintTop_toBottomOf="@+id/btUpload" />
+
+    <Button
+        android:id="@+id/btDelete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="delete"
+        app:layout_constraintEnd_toEndOf="@+id/ivUser"
+        app:layout_constraintStart_toStartOf="@+id/ivUser"
+        app:layout_constraintTop_toBottomOf="@+id/btdownload" />
+
+    <Button
+        android:id="@+id/btImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Gallery"
+        app:layout_constraintEnd_toEndOf="@+id/ivUser"
+        app:layout_constraintStart_toStartOf="@+id/ivUser"
+        app:layout_constraintTop_toBottomOf="@+id/btDelete" />
+</androidx.constraintlayout.widget.ConstraintLayout>
