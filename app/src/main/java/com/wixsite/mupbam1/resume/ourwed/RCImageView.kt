@@ -3,6 +3,7 @@ package com.wixsite.mupbam1.resume.ourwed
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst.imageRef
 import kotlinx.android.synthetic.main.activity_rcimage_view.*
@@ -23,6 +24,7 @@ class RCImageView : AppCompatActivity() {
         try {
             val images=imageRef.child("images/").listAll().await()
             val imageUrls= mutableListOf<String>()
+
             for (image in images.items){
                 val url=image.downloadUrl.await()
                 imageUrls.add(url.toString())
@@ -31,7 +33,7 @@ class RCImageView : AppCompatActivity() {
                 val imageAdapter=ImageAdapter(imageUrls)
                 rcImageView.apply {
                     adapter=imageAdapter
-                    layoutManager= LinearLayoutManager(this@RCImageView)
+                    layoutManager= GridLayoutManager(this@RCImageView,3)
                 }
             }
         } catch (e: Exception) {

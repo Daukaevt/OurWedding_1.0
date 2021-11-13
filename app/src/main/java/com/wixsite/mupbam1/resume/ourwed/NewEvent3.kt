@@ -46,8 +46,21 @@ class NewEvent3 : AppCompatActivity() {
             }
 
             btUpload.setOnClickListener {
+                if (edUserName.text.isNotEmpty()) {
+                    filename=edUserName.text.toString()
+                    Log.d("MyLog","edUserName=$filename")
+                    uploadImageToStorage(filename)
+                    edUserName.text.clear()
+                    //val res: Resources = resources
+                    //val drawable: Drawable = res.getDrawable(R.drawable.ic_menu_camera)
+                    //ivUser==drawable
+                }
+                else {
+                    android.util.Log.d("MyLog","edUserName=null")
+                    android.widget.Toast.makeText(
+                        this@NewEvent3, com.wixsite.mupbam1.resume.ourwed.R.string.edUserNameEmpty, android.widget.Toast.LENGTH_LONG).show()
+                }
 
-                uploadImageToStorage(filename)
             }
 
             btdownload.setOnClickListener {

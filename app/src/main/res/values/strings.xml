@@ -35,5 +35,7 @@
     <string name="EnterWithGoogle">У Вас уже есть Google-аккаунт.
         Пожалуйста, войдите через него и пройдите повторную регистрацию через Email.</string>
     <string name="msg_token_fmt">"token4 - "</string>
+    <!--SignInMenu-->
+    <string name="edUserNameEmpty">Дайте имя Вашему фото/видео файлу</string>
 
 </resources>
