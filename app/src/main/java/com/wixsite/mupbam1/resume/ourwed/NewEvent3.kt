@@ -10,12 +10,14 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityNewEvent3Binding
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityRcimageViewBinding
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
 import kotlinx.android.synthetic.main.activity_new_event3.*
 import kotlinx.android.synthetic.main.activity_rcimage_view.*
+import kotlinx.android.synthetic.main.image_rnd.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,7 +50,6 @@ class NewEvent3 : AppCompatActivity() {
             btUpload.setOnClickListener {
                 if (edUserName.text.isNotEmpty()) {
                     filename=edUserName.text.toString()
-                    Log.d("MyLog","edUserName=$filename")
                     uploadImageToStorage(filename)
                     edUserName.text.clear()
                     //val res: Resources = resources
@@ -73,7 +74,9 @@ class NewEvent3 : AppCompatActivity() {
             }
             btImageView.setOnClickListener {
                //нужен intent на RCImageView
-                startActivity(Intent(this@NewEvent3, RCImageView::class.java))
+
+               startActivity(Intent(this@NewEvent3, RCImageView::class.java))
+
             }
 
 
@@ -105,6 +108,7 @@ class NewEvent3 : AppCompatActivity() {
                        withContext(Dispatchers.Main) {
                            Toast.makeText(this@NewEvent3, "Successfully uploaded image",
                               Toast.LENGTH_LONG).show()
+                           Log.d("MyLog","filename is $filename")
                            //filencount++
                        }
                  }

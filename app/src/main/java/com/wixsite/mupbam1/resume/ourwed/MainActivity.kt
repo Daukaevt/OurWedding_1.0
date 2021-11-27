@@ -22,8 +22,14 @@ import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityNewEventBinding
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogHelper
 import com.wixsite.mupbam1.resume.ourwed.utils.ImagePicker
+import kotlinx.android.synthetic.main.activity_new_event3.*
+import kotlinx.android.synthetic.main.image_rnd.*
+import kotlinx.android.synthetic.main.image_rnd.view.*
+import kotlinx.android.synthetic.main.nav_header_mine.view.*
+import kotlinx.android.synthetic.main.sign_dialog.*
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+
     lateinit var binding: ActivityMainBinding
     private lateinit var tvAccount:TextView
     private val dialogHelper=DialogHelper(this)
@@ -34,6 +40,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         setContentView(binding.root)
         init()
         //NewEvent()
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
