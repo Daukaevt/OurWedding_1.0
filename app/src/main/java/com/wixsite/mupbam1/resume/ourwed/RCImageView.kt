@@ -1,5 +1,6 @@
 package com.wixsite.mupbam1.resume.ourwed
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,8 +18,10 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 
-
 class RCImageView : AppCompatActivity() {
+    lateinit var urlIntent:String
+    lateinit var httpsReferenceNameIntent: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rcimage_view)
@@ -33,13 +36,23 @@ class RCImageView : AppCompatActivity() {
 
             for (image in images.items){
                 val url=image.downloadUrl.await()
+                urlIntent= url.toString()
+                Log.d("MyLog", urlIntent)
                 imageUrls.add(url.toString())
+                httpsReferenceNameIntent = FirebaseStorage.getInstance().getReferenceFromUrl(url.toString()).name
+
             }
             withContext(Dispatchers.Main){
                 val imageAdapter=ImageAdapter(imageUrls, object : rcViewItemOnClickListner{
                     override fun onClicked(url: String) {
                         val httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(url.toString())
                         Log.d("MyLog","onClicked ${httpsReference.name}")
+                        val intent=Intent(this@RCImageView, NewEvent3::class.java).apply {
+                            putExtra("httpsReferenceNameIntent", httpsReferenceNameIntent)
+                            putExtra("urlIntent", urlIntent)
+                        }
+                        startActivity(intent)
+
                     }
 
                 })
@@ -49,6 +62,7 @@ class RCImageView : AppCompatActivity() {
 
                 }
             }
+
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 Toast.makeText(this@RCImageView, e.message, Toast.LENGTH_LONG).show()
@@ -56,5 +70,6 @@ class RCImageView : AppCompatActivity() {
                 Log.d("MyLog","ERROR!!! $eMessage")
             }
         }
+
     }
 }

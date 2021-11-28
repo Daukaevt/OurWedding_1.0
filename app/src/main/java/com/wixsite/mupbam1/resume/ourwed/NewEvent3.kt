@@ -15,6 +15,7 @@ import com.google.firebase.storage.ktx.storage
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityNewEvent3Binding
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityRcimageViewBinding
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
+import io.ak1.pix.helpers.toast
 import kotlinx.android.synthetic.main.activity_new_event3.*
 import kotlinx.android.synthetic.main.activity_rcimage_view.*
 import kotlinx.android.synthetic.main.image_rnd.*
@@ -29,6 +30,7 @@ class NewEvent3 : AppCompatActivity() {
     lateinit var binding: ActivityNewEvent3Binding
     var curFile: Uri? = null
     var filename="pic"
+    val imageUriAndTitleList= mutableListOf<Cards>()
     //var filencount=0
     //var filencountDownload=0
 
@@ -40,6 +42,14 @@ class NewEvent3 : AppCompatActivity() {
         setContentView(binding.root)
 
         with(binding){
+            var i=intent
+            if (i!=null){
+                var urlIntent1=i.getCharSequenceExtra("urlIntent")
+                var httpsReferenceNameIntent1=i.getCharSequenceExtra("httpsReferenceNameIntent")
+               Log.d("MyLog","urlIntent $urlIntent1")
+               Log.d("MyLog","httpsReferenceNameIntent $httpsReferenceNameIntent1")
+            }
+
             ivUser.setOnClickListener {
                 Intent(Intent.ACTION_GET_CONTENT).also {
                     it.type = "image/*"
