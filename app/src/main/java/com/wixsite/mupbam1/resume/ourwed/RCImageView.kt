@@ -1,9 +1,12 @@
 package com.wixsite.mupbam1.resume.ourwed
 
 import android.content.Intent
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.storage.FirebaseStorage
@@ -19,6 +22,7 @@ import kotlinx.coroutines.withContext
 
 
 class RCImageView : AppCompatActivity() {
+
     lateinit var urlIntent:String
     lateinit var httpsReferenceNameIntent: String
 
@@ -36,25 +40,24 @@ class RCImageView : AppCompatActivity() {
 
             for (image in images.items){
                 val url=image.downloadUrl.await()
-                urlIntent= url.toString()
-                Log.d("MyLog", urlIntent)
+                //urlIntent= url.toString()
+                //Log.d("MyLog", urlIntent)
                 imageUrls.add(url.toString())
-                httpsReferenceNameIntent = FirebaseStorage.getInstance().getReferenceFromUrl(url.toString()).name
+
+
 
             }
             withContext(Dispatchers.Main){
                 val imageAdapter=ImageAdapter(imageUrls, object : rcViewItemOnClickListner{
                     override fun onClicked(url: String) {
                         val httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(url.toString())
-                        Log.d("MyLog","onClicked ${httpsReference.name}")
                         val intent=Intent(this@RCImageView, NewEvent3::class.java).apply {
-                            putExtra("httpsReferenceNameIntent", httpsReferenceNameIntent)
-                            putExtra("urlIntent", urlIntent)
+                            putExtra("httpsReferenceNameIntent", httpsReference.name)
+                            putExtra("urlIntent", url.toString())
+
                         }
                         startActivity(intent)
-
                     }
-
                 })
                 rcImageView.apply {
                     adapter=imageAdapter

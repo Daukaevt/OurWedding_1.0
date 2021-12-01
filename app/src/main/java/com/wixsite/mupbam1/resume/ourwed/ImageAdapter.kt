@@ -20,23 +20,12 @@ class ImageAdapter(val urls: List<String>, private val onClickListner: rcViewIte
     inner class ImageViewHolder(itemView : View):RecyclerView.ViewHolder(itemView){
         val binding = ImageRndBinding.bind(itemView)
         fun bind(cards: Cards)= with(binding){
-
-            ivRND.setImageResource(cards.ImageId.toString().toInt())
-            tvTitle.text=cards.title
-
-
+            ivRND.setImageResource(cards.imageId.toString().toInt())
 
         }
-
     }
 
-
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-
-
         return ImageViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.image_rnd,
                 parent,false))
@@ -48,7 +37,6 @@ class ImageAdapter(val urls: List<String>, private val onClickListner: rcViewIte
             onClickListner.onClicked(url)
         }
         Glide.with(holder.itemView).load(url).into(holder.itemView.ivRND)
-
     }
 
     override fun getItemCount(): Int {
