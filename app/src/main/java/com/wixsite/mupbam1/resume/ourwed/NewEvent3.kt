@@ -28,14 +28,18 @@ import android.R
 import android.view.View
 
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.image_rnd.view.*
+import kotlinx.coroutines.NonCancellable.start
 
 
 class NewEvent3 : AppCompatActivity() {
     lateinit var binding: ActivityNewEvent3Binding
     var curFile: Uri? = null
-    var filename="pic"
+    var filename=""
+
 
     val imageRef = Firebase.storage.reference
 
@@ -47,18 +51,23 @@ class NewEvent3 : AppCompatActivity() {
         with(binding){
 
             var i=intent
+
             if (i!=null){
                 var urlIntent1=i.getCharSequenceExtra("urlIntent")
                 var httpsReferenceNameIntent1=i.getCharSequenceExtra("httpsReferenceNameIntent")
+
+
                 //var imageUrlsList=i.getCharSequenceExtra("imageUrlsListIndexed")
                 Glide.with(this@NewEvent3).load(urlIntent1).into(ivUser)
-               Log.d("MyLog","urlIntent $urlIntent1")
+
+                Log.d("MyLog","urlIntent $urlIntent1")
                 filename=httpsReferenceNameIntent1.toString()
-               Log.d("MyLog","httpsReferenceNameIntent $httpsReferenceNameIntent1")
-               //Log.d("MyLog","imageUrlsList: $imageUrlsList")
+                Log.d("MyLog","httpsReferenceNameIntent $httpsReferenceNameIntent1")
+                 //Log.d("MyLog","imageUrlsList: $imageUrlsList")
             }
 
             ivUser.setOnClickListener {
+                //vis=23
                 Intent(Intent.ACTION_GET_CONTENT).also {
                     it.type = "image/*"
                     startActivityForResult(it, DialogConst.REQUEST_CODE_IMAGE_PICK)
@@ -66,10 +75,15 @@ class NewEvent3 : AppCompatActivity() {
             }
 
             btUpload.setOnClickListener {
+
                 if (edUserName.text.isNotEmpty()) {
                     filename=edUserName.text.toString()
                     uploadImageToStorage(filename)
                     edUserName.text.clear()
+                    //пиздец, конечно, но что поделать когда не знаешь как добраться до ресурсов
+                    ivUser.setImageResource("2131165331".toInt())
+                    /////////////ivUser.setImageResource(draw)
+
                     //val res: Resources = resources
                     //val drawable: Drawable = res.getDrawable(R.drawable.ic_menu_camera)
                     //ivUser==drawable
@@ -82,14 +96,20 @@ class NewEvent3 : AppCompatActivity() {
             }
 
             btdownload.setOnClickListener {
+
                 downloadImage(filename)
+
             }
 
             btDelete.setOnClickListener {
+
                 deleteImage(filename)
+
+
             }
 
-            btImageView.setOnClickListener {
+            btGallery.setOnClickListener {
+
                //нужен intent на RCImageView
                startActivity(Intent(this@NewEvent3, RCImageView::class.java))
             }
@@ -104,6 +124,7 @@ class NewEvent3 : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@NewEvent3, "Successfully deleted image",
                         Toast.LENGTH_LONG).show()
+
                 }
             //}
         } catch (e: Exception) {
@@ -141,6 +162,7 @@ class NewEvent3 : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     binding.ivUser.setImageBitmap(bmp)
                     //filencountDownload++
+
                 }
             } catch(e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -148,15 +170,30 @@ class NewEvent3 : AppCompatActivity() {
                 }
             }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-      super.onActivityResult(requestCode, resultCode, data)
-       if(resultCode == Activity.RESULT_OK && requestCode == DialogConst.REQUEST_CODE_IMAGE_PICK) {
-          data?.data?.let {
-              curFile = it
+        super.onActivityResult(requestCode, resultCode, data)
+         if(resultCode == Activity.RESULT_OK && requestCode == DialogConst.REQUEST_CODE_IMAGE_PICK) {
+           data?.data?.let {
+               curFile = it
+               Log.d("MyLog", "it-$it")
                binding.ivUser.setImageURI(it)
+
+
+
            }
        }
     }
+
+
+   //override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+   //    super.onActivityResult(requestCode, resultCode, data)
+   //    if (resultCode == Activity.RESULT_OK && requestCode == DialogConst.REQUEST_CODE_IMAGE_PICK){
+    //       with(binding){
+    //           imageView23.setImageURI(data?.data) // handle chosen image
+     //          ivUser.visibility=View.GONE
+       //        imageView23.visibility= View.VISIBLE
+         //  }
+       //}
+   //}
 }
 

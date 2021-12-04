@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.storage.FirebaseStorage
+import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst.imageRef
 import kotlinx.android.synthetic.main.activity_rcimage_view.*
 import kotlinx.android.synthetic.main.image_rnd.*
