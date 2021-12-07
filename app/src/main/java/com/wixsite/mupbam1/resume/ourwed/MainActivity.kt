@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId==R.id.newEvent){
             //вернуть на NewEvent
-            Log.d("MyLog","Res-${R.drawable.image1}")
+            //Log.d("MyLog","Res-${R.drawable.image1}")
             val intent=Intent(this, NewEvent3::class.java)
             startActivity(intent)
         }
