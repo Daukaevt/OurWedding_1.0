@@ -16,6 +16,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.wixsite.mupbam1.resume.ourwed.actEvent.NewEvent
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityNewEventBinding
@@ -25,6 +27,7 @@ import com.wixsite.mupbam1.resume.ourwed.utils.ImagePicker
 import kotlinx.android.synthetic.main.activity_new_event3.*
 import kotlinx.android.synthetic.main.image_rnd.*
 import kotlinx.android.synthetic.main.image_rnd.view.*
+import kotlinx.android.synthetic.main.nav_header_mine.*
 import kotlinx.android.synthetic.main.nav_header_mine.view.*
 import kotlinx.android.synthetic.main.sign_dialog.*
 
@@ -38,6 +41,11 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val database = Firebase.database("https://ourwed-c2a46-default-rtdb.europe-west1.firebasedatabase.app")
+        val myRef = database.getReference("message")
+
+        myRef.setValue("Hello, hello!")
+
         init()
         //NewEvent()
 
@@ -79,7 +87,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         super.onStart()
         uiUpdate(mAuth.currentUser)
     }
+
     fun init(){
+        val iii=R.drawable.image1
+        Log.d("MyLog","image1- $iii")
         setSupportActionBar(binding.mainContent.toolbar)
         val toggle=ActionBarDrawerToggle(
             this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
@@ -88,8 +99,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding.navView.setNavigationItemSelectedListener(this)
         tvAccount=binding.navView.getHeaderView(0).findViewById(R.id.tvAccount)
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+
             R.id.weAre->{
                 Toast.makeText(this, "Pressed weAre", Toast.LENGTH_LONG).show()
             }
@@ -129,6 +142,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     fun uiUpdate(user:FirebaseUser?){
         tvAccount.text=if (user==null){
             resources.getString(R.string.not_reg)

@@ -16,6 +16,13 @@ object DialogConst {
     const val REQUEST_CODE_IMAGE_PICK=996
     val imageRef = Firebase.storage.reference
 
+    //Event3
+    const val eGallery="Галерея"
+    const val eWeAre="Это мы!"
+    const val eAcquaintance="Как мы познакомились"
+    const val eMoments="Памятные моменты"
+    const val eVips="Те, кто очень важен для нас"
+
 
 
 

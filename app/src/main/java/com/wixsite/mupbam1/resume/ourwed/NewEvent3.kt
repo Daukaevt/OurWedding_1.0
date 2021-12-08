@@ -7,7 +7,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -27,11 +26,13 @@ import kotlinx.coroutines.withContext
 import android.R
 import android.graphics.Color
 import android.view.View
+import android.widget.*
 
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.google.android.datatransport.runtime.util.PriorityMapping.toInt
+import com.google.firebase.database.ktx.database
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.image_rnd.view.*
 import kotlinx.coroutines.NonCancellable.start
@@ -42,6 +43,7 @@ class NewEvent3 : AppCompatActivity() {
 
     var curFile: Uri? = null
     var filename=""
+    var getPosition=0
 
     val imageRef = Firebase.storage.reference
 
@@ -49,9 +51,11 @@ class NewEvent3 : AppCompatActivity() {
         binding= ActivityNewEvent3Binding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        // Write a message to the database
 
         with(binding){
             vis()
+            setupSpinner()
             var i=intent
             if (i!=null){
                 var urlIntent1=i.getCharSequenceExtra("urlIntent")
@@ -63,6 +67,7 @@ class NewEvent3 : AppCompatActivity() {
                     edUserName.visibility=View.GONE
                     btUpload.visibility=View.GONE
                     tvFileName.text=httpsReferenceNameIntent1.toString()
+                    mySpinner?.visibility=View.VISIBLE
                 }
                 Log.d("MyLog","urlIntent $urlIntent1")
                 filename=httpsReferenceNameIntent1.toString()
@@ -85,7 +90,8 @@ class NewEvent3 : AppCompatActivity() {
                     uploadImageToStorage(filename)
                     edUserName.text.clear()
                     //пиздец, конечно, но что поделать когда не знаешь как добраться до ресурсов
-                    ivUser.setImageResource("2131165331".toInt())
+                    ivUser.setImageResource("2131230867".toInt())
+
                 }
                 else {
                     android.util.Log.d("MyLog","edUserName=null")
@@ -95,10 +101,7 @@ class NewEvent3 : AppCompatActivity() {
             }
 
             btdownload.setOnClickListener {
-
                 downloadImage(filename)
-
-
             }
 
             btDelete.setOnClickListener {
@@ -108,16 +111,53 @@ class NewEvent3 : AppCompatActivity() {
             }
 
             btGallery.setOnClickListener {
-                startActivity(Intent(this@NewEvent3, RCImageView::class.java))
+                when(getPosition){
+                0-> startActivity(Intent(this@NewEvent3, RCImageView::class.java))
+                1->Log.d("MyLog","выбраны-${DialogConst.eWeAre}")
+                2->Log.d("MyLog","выбраны-${DialogConst.eAcquaintance}")
+                3->Log.d("MyLog","выбраны-${DialogConst.eMoments}")
+                4->Log.d("MyLog","выбраны-${DialogConst.eVips}")
+                }
+            }
+
+        }
+    }
+    private fun setupSpinner() {
+        val personNames = arrayOf(
+            DialogConst.eGallery,
+            DialogConst.eWeAre,
+            DialogConst.eAcquaintance,
+            DialogConst.eMoments,
+            DialogConst.eVips)
+      val spinner = binding.mySpinner
+       val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, personNames)
+       spinner?.adapter = arrayAdapter
+
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+           override fun onItemSelected(
+                parent: AdapterView<*>,
+               view: View,
+                position: Int,
+                id: Long
+            ) {
+               getPosition= position
+
+               //Log.d("MyLog","SItem-${personNames[position]}")
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Code to perform some action when nothing is selected
             }
         }
     }
-
     private fun vis() {
         btDelete.visibility=View.GONE
         edUserName.visibility=View.VISIBLE
         btUpload.visibility=View.VISIBLE
         tvFileName.text=""
+        mySpinner.visibility=View.GONE
+
+
     }
 
     private fun deleteImage(filename: String)= CoroutineScope(Dispatchers.IO).launch  {
@@ -178,6 +218,5 @@ class NewEvent3 : AppCompatActivity() {
            }
        }
     }
-
 }
 

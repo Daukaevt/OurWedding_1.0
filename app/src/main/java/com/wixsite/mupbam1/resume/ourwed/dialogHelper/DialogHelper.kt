@@ -23,7 +23,7 @@ class DialogHelper(act:MainActivity) {
             setOnClickRegistration(index,binding,dialog)
         }
         binding.btForgot.setOnClickListener {
-            setOnClickResetPasword(binding,dialog)
+           setOnClickResetPasword(binding,dialog)
         }
         binding.btGoogleSignIn.setOnClickListener {
             accountHelper.signInWithGoogle()
