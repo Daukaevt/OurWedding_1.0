@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
+            android:name=".rcCards"
+            android:exported="false" />
+        <activity
             android:name=".RCImageView"
             android:exported="false" />
         <activity

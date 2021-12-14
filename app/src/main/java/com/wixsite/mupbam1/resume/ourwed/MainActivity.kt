@@ -1,8 +1,6 @@
 package com.wixsite.mupbam1.resume.ourwed
 
-import android.accounts.Account
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,6 +8,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
@@ -18,18 +17,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.wixsite.mupbam1.resume.ourwed.actEvent.NewEvent
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
-import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityNewEventBinding
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogHelper
-import com.wixsite.mupbam1.resume.ourwed.utils.ImagePicker
-import kotlinx.android.synthetic.main.activity_new_event3.*
-import kotlinx.android.synthetic.main.image_rnd.*
-import kotlinx.android.synthetic.main.image_rnd.view.*
-import kotlinx.android.synthetic.main.nav_header_mine.*
 import kotlinx.android.synthetic.main.nav_header_mine.view.*
-import kotlinx.android.synthetic.main.sign_dialog.*
+
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,21 +33,31 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val database = Firebase.database("https://ourwed-c2a46-default-rtdb.europe-west1.firebasedatabase.app")
-        val myRef = database.getReference("message")
 
-        myRef.setValue("Hello, hello!")
+
 
         init()
         //NewEvent()
 
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId==R.id.newEvent){
             //вернуть на NewEvent
             //Log.d("MyLog","Res-${R.drawable.image1}")
             val intent=Intent(this, NewEvent3::class.java)
+                .apply {
+                    putExtra("userIntent", tvAccount.text.toString())
+                }
+
+//                var tvAccount=binding.navView.tvAccount.text
+//                Log.d("MyLog","tvAccount-$tvAccount")
+
+
+
+
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
@@ -69,18 +71,29 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==DialogConst.signInRequestCode){
-            Log.d("MyLog","result")
             val task=GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account=task.getResult(ApiException::class.java)
                 if (account!=null){
-                    Log.d("MyLog","Api +")
+                    Log.d("MyLog","Api +$account")
                     dialogHelper.accountHelper.signInFirebaseWithGoogle(account.idToken!!)
                 }
             }catch(e:ApiException){
                 Log.d("MyLog","Api error:${e.message}")
             }
         }
+//        if (resultCode== RESULT_OK&&data!=null){
+//            when(requestCode){
+//                DialogConst.httpsReferenceNameIntentCode->{
+                  //  httpsReferenceNameIntentMain= data.getStringExtra().toString()
+//                }
+//                DialogConst.urlIntentCode->{
+                   // urlIntentMain=data.getStringExtra().toString()
+//                }
+
+
+//            }
+//        }
     }
 
     override fun onStart() {
@@ -98,6 +111,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
         tvAccount=binding.navView.getHeaderView(0).findViewById(R.id.tvAccount)
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -105,6 +119,14 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
             R.id.weAre->{
                 Toast.makeText(this, "Pressed weAre", Toast.LENGTH_LONG).show()
+//                val intent=Intent(this, rcCards::class.java).apply {
+
+//                    var tvAccount=binding.navView.tvAccount.text
+//                    Log.d("MyLog","tvAccount-$tvAccount")
+//                    putExtra("userlIntent", tvAccount.toString())
+
+//                }
+
             }
             R.id.acqnts->{
                 Toast.makeText(this, "Pressed acqnts", Toast.LENGTH_LONG).show()

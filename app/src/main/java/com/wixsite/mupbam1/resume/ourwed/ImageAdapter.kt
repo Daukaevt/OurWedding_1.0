@@ -20,7 +20,7 @@ class ImageAdapter(val urls: List<String>, private val onClickListner: rcViewIte
     inner class ImageViewHolder(itemView : View):RecyclerView.ViewHolder(itemView){
         val binding = ImageRndBinding.bind(itemView)
         fun bind(cards: Cards)= with(binding){
-            ivRND.setImageResource(cards.imageId.toString().toInt())
+            ivRND.setImageResource(cards.imageName.toString().toInt())
 
         }
     }

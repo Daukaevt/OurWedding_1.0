@@ -32,6 +32,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.google.android.datatransport.runtime.util.PriorityMapping.toInt
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.image_rnd.view.*
@@ -44,6 +48,10 @@ class NewEvent3 : AppCompatActivity() {
     var curFile: Uri? = null
     var filename=""
     var getPosition=0
+    var userIntentAccount1=""
+    var urlIntent2=""
+    var httpsReferenceNameIntent2=""
+    var userIntentAccount2=""
 
     val imageRef = Firebase.storage.reference
 
@@ -51,15 +59,44 @@ class NewEvent3 : AppCompatActivity() {
         binding= ActivityNewEvent3Binding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        val database = Firebase.database("https://ourwed-c2a46-default-rtdb.europe-west1.firebasedatabase.app")
+        val weAre = database.getReference("weAre")
+        val weArehttps = database.getReference("weArehttps")
+        val acqRef = database.getReference("acquaintance")
+        val acqRefhttps = database.getReference("acquaintancehttps")
+        val momentsRef = database.getReference("moments")
+        val momentsRefhttps = database.getReference("momentshttps")
+        val vipsRef = database.getReference("vips")
+        val vipsRefhttps = database.getReference("vipshttps")
+
+
+        //myRef.setValue("Hello, hello, hello!")
         // Write a message to the database
+
 
         with(binding){
             vis()
             setupSpinner()
             var i=intent
             if (i!=null){
+
+                var userIntent1=i.getStringExtra("userIntent")
+                //urlIntent2=userIntent1.toString()
+                Log.d("MyLog","userAccountIntent=$userIntent1")
+                userIntentAccount1=userIntent1.toString()
+
+                var userIntent2=i.getStringExtra("userAccountIntent2")
+                //urlIntent2=userIntent1.toString()
+                Log.d("MyLog","userAccountIntent2=$userIntent2")
+                userIntentAccount2=userIntent2.toString()
+
+
+
                 var urlIntent1=i.getCharSequenceExtra("urlIntent")
+                urlIntent2=urlIntent1.toString()
+
                 var httpsReferenceNameIntent1=i.getCharSequenceExtra("httpsReferenceNameIntent")
+                httpsReferenceNameIntent2=httpsReferenceNameIntent1.toString()
                 if (urlIntent1!=null){
                     ivUser.setBackgroundColor(Color.WHITE)
                     Glide.with(this@NewEvent3).load(urlIntent1).into(ivUser)
@@ -106,22 +143,85 @@ class NewEvent3 : AppCompatActivity() {
 
             btDelete.setOnClickListener {
                 deleteImage(filename)
-                ivUser.setImageResource("2131165331".toInt())
+                ivUser.setImageResource("2131230867".toInt())
                 tvFileName.text=""
             }
 
             btGallery.setOnClickListener {
                 when(getPosition){
-                0-> startActivity(Intent(this@NewEvent3, RCImageView::class.java))
-                1->Log.d("MyLog","выбраны-${DialogConst.eWeAre}")
-                2->Log.d("MyLog","выбраны-${DialogConst.eAcquaintance}")
-                3->Log.d("MyLog","выбраны-${DialogConst.eMoments}")
-                4->Log.d("MyLog","выбраны-${DialogConst.eVips}")
+                    0-> {val intent=Intent(this@NewEvent3, RCImageView::class.java)
+                        intent.putExtra("userAccountIntent", userIntentAccount1)
+                        startActivity(intent)
+
+                    }
+                    1->{weAre.child(weAre.push().key?:"blabla")
+                            .setValue(httpsReferenceNameIntent2)
+
+                        weArehttps.child(weArehttps.push().key?:"blabla")
+                            .setValue(urlIntent2)
+
+                        onChangeListener(weAre)
+                        onChangeListener(weArehttps)
+
+                    }
+
+                    2->{acqRef.child(acqRef.push().key?:"blabla")
+                        .setValue(httpsReferenceNameIntent2)
+
+                        acqRefhttps.child(acqRefhttps.push().key?:"blabla")
+                        .setValue(urlIntent2)
+
+                        onChangeListener(acqRef)
+                        onChangeListener(acqRefhttps)
+
+                    }
+
+                    3->{momentsRef.child(momentsRef.push().key?:"blabla")
+                        .setValue(httpsReferenceNameIntent2)
+
+                        momentsRefhttps.child(momentsRefhttps.push().key?:"blabla")
+                            .setValue(urlIntent2)
+                        onChangeListener(momentsRef)
+                        onChangeListener(momentsRefhttps)
+
+
+                    }
+
+                    4->{vipsRef.child(vipsRef.push().key?:"blabla")
+                        .setValue(httpsReferenceNameIntent2)
+                        vipsRefhttps.child(vipsRefhttps.push().key?:"blabla")
+                            .setValue(urlIntent2)
+                        onChangeListener(vipsRef)
+                        onChangeListener(vipsRefhttps)
+
+
+                    }
                 }
             }
-
         }
     }
+
+
+    override fun onBackPressed() {
+
+        finish()
+    }
+
+    private fun onChangeListener(myRef: DatabaseReference) {
+        myRef.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                with(binding){
+                    var string1=snapshot.value.toString()
+                    Log.d("MyLog","RTDBvalue-$string1")
+                    startActivity(Intent(this@NewEvent3, RCImageView::class.java))
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
     private fun setupSpinner() {
         val personNames = arrayOf(
             DialogConst.eGallery,
@@ -141,7 +241,13 @@ class NewEvent3 : AppCompatActivity() {
                 id: Long
             ) {
                getPosition= position
-
+               when(getPosition){
+                   0-> btGallery.text="Gallery"
+                   1->btGallery.text=DialogConst.eWeAre
+                   2->btGallery.text=DialogConst.eAcquaintance
+                   3->btGallery.text=DialogConst.eMoments
+                   4->btGallery.text=DialogConst.eVips
+               }
                //Log.d("MyLog","SItem-${personNames[position]}")
             }
 
@@ -216,7 +322,8 @@ class NewEvent3 : AppCompatActivity() {
                Log.d("MyLog", "it-$it")
                binding.ivUser.setImageURI(it)
            }
-       }
+         }
+
     }
 }
 

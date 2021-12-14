@@ -15,8 +15,10 @@
         <entry key="app/src/main/res/layout/activity_new_event2.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/activity_new_event3.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/activity_new_event4.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout/activity_rc_cards.xml" value="0.1046875" />
         <entry key="app/src/main/res/layout/activity_rcimage_view.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/activity_rcview.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout/cards_list_item.xml" value="0.15" />
         <entry key="app/src/main/res/layout/image_rnd.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/main_content.xml" value="0.19282051282051282" />
         <entry key="app/src/main/res/layout/main_menu.xml" value="0.19583333333333333" />

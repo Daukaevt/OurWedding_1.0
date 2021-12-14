@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-
+var userAccountIntent2=""
 class RCImageView : AppCompatActivity() {
 
     lateinit var urlIntent:String
@@ -30,6 +30,14 @@ class RCImageView : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rcimage_view)
+
+        var i=intent
+        if (i!=null){
+
+            var userAccountIntent1=i.getStringExtra("userAccountIntent")
+        //urlIntent2=userIntent1.toString()
+        Log.d("MyLog","userAccountIntent1=$userAccountIntent1")
+        userAccountIntent2=userAccountIntent1.toString()}
 
         listFiles()
     }
@@ -52,11 +60,13 @@ class RCImageView : AppCompatActivity() {
                 val imageAdapter=ImageAdapter(imageUrls, object : rcViewItemOnClickListner{
                     override fun onClicked(url: String) {
                         val httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(url.toString())
-                        val intent=Intent(this@RCImageView, NewEvent3::class.java).apply {
-                            putExtra("httpsReferenceNameIntent", httpsReference.name)
-                            putExtra("urlIntent", url.toString())
+                        val intent=Intent(this@RCImageView, NewEvent3::class.java)
 
-                        }
+                            intent.putExtra("httpsReferenceNameIntent", "$userAccountIntent2: ${httpsReference.name}")
+                            intent.putExtra("urlIntent", url.toString())
+                            intent.putExtra("userAccountIntent2", userAccountIntent2)
+
+
                         startActivity(intent)
                     }
                 })

@@ -37,11 +37,14 @@
     <string name="msg_token_fmt">"token4 - "</string>
     <!--RecyclerViewMenu-->
     <string name="edUserNameEmpty">Дайте имя Вашему фото/видео файлу</string>
+
+    <!--Event3-->
     <string-array name="menuNames">
         <item>Это мы!</item>
         <item>Как мы познакомились</item>
         <item>Памятные моменты</item>
         <item>Те, кто очень важен для нас</item>
     </string-array>
+
 
 </resources>

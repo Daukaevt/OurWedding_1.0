@@ -6,6 +6,9 @@ import com.google.firebase.storage.ktx.storage
 object DialogConst {
     const val Sign_Up_State=0
     const val Sign_In_State=1
+    const val AccountConst=10
+//    const val httpsReferenceNameIntentCode=11
+
 
     const val signInRequestCode=456
     const val ERROR_EMAIL_ALREADY_IN_USE="ERROR_EMAIL_ALREADY_IN_USE"
