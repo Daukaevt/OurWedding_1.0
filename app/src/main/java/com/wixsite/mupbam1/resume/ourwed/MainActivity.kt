@@ -1,26 +1,30 @@
 package com.wixsite.mupbam1.resume.ourwed
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogHelper
 import kotlinx.android.synthetic.main.nav_header_mine.view.*
+import java.util.jar.Manifest
 
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
@@ -29,10 +33,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private lateinit var tvAccount:TextView
     private val dialogHelper=DialogHelper(this)
     val mAuth=FirebaseAuth.getInstance()
+    private lateinit var permisLauncher:ActivityResultLauncher<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        registerPermissionListner()
+        checkCameraPermission()
 
 
 
@@ -41,6 +48,33 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     }
 
+    private fun checkCameraPermission() {
+        when{
+            ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED->{
+                Toast.makeText(this, "Camera run", Toast.LENGTH_LONG).show()
+                }
+            shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA) -> {
+//                Toast.makeText(this,
+//                    "We need your Camera permission ", Toast.LENGTH_LONG).show()
+                permisLauncher.launch(android.Manifest.permission.CAMERA)
+                    }
+            else->{
+                permisLauncher.launch(android.Manifest.permission.CAMERA)
+
+            }
+        }
+    }
+    private fun registerPermissionListner(){
+        permisLauncher=registerForActivityResult(ActivityResultContracts.RequestPermission()){
+            if (it){
+                Toast.makeText(this, "Camera run", Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_LONG).show()
+
+            }
+        }
+    }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.wixsite.mupbam1.resume.ourwed"
-        minSdk 21
+        minSdk 23
         targetSdk 31
         versionCode 1
         versionName "1.0"
