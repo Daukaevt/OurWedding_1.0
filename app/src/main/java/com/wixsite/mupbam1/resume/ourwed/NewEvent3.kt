@@ -32,6 +32,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.google.android.datatransport.runtime.util.PriorityMapping.toInt
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -40,6 +42,7 @@ import com.google.firebase.database.ktx.database
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.image_rnd.view.*
 import kotlinx.coroutines.NonCancellable.start
+import android.provider.Settings.Global.getString as getString1
 
 
 class NewEvent3 : AppCompatActivity() {
@@ -52,6 +55,9 @@ class NewEvent3 : AppCompatActivity() {
     var urlIntent2=""
     var httpsReferenceNameIntent2=""
     var userIntentAccount2=""
+    lateinit var auth: FirebaseAuth
+
+
 
     val imageRef = Firebase.storage.reference
 
@@ -61,35 +67,35 @@ class NewEvent3 : AppCompatActivity() {
         setContentView(binding.root)
         val database = Firebase.database("https://ourwed-c2a46-default-rtdb.europe-west1.firebasedatabase.app")
         val weAre = database.getReference("weAre")
-        val weArehttps = database.getReference("weArehttps")
+       // val weArehttps = database.getReference("weArehttps")
         val acqRef = database.getReference("acquaintance")
-        val acqRefhttps = database.getReference("acquaintancehttps")
+       // val acqRefhttps = database.getReference("acquaintancehttps")
         val momentsRef = database.getReference("moments")
-        val momentsRefhttps = database.getReference("momentshttps")
+       // val momentsRefhttps = database.getReference("momentshttps")
         val vipsRef = database.getReference("vips")
-        val vipsRefhttps = database.getReference("vipshttps")
-
+     //   val vipsRefhttps = database.getReference("vipshttps")
+        //val myRef=database.getReference("weAre")
 
         //myRef.setValue("Hello, hello, hello!")
         // Write a message to the database
 
-
         with(binding){
             vis()
             setupSpinner()
+            auth = Firebase.auth
             var i=intent
             if (i!=null){
 
-                var userIntent1=i.getStringExtra("userIntent")
+                //var userIntent1=i.getStringExtra("userIntent")
                 //urlIntent2=userIntent1.toString()
-                Log.d("MyLog","userAccountIntent=$userIntent1")
-                userIntentAccount1=userIntent1.toString()
+                //Log.d("MyLog","userAccountIntent=$userIntent1")
+               // userIntentAccount1=userIntent1.toString()
 
-                var userIntent2=i.getStringExtra("userAccountIntent2")
+
+                //var userIntent2=i.getStringExtra("userAccountIntent2")
+                //userIntentAccount1=userIntent2.toString()
                 //urlIntent2=userIntent1.toString()
-                Log.d("MyLog","userAccountIntent2=$userIntent2")
-                userIntentAccount2=userIntent2.toString()
-
+                //Log.d("MyLog","userAccountIntent2=$userIntent2")
 
 
                 var urlIntent1=i.getCharSequenceExtra("urlIntent")
@@ -106,9 +112,9 @@ class NewEvent3 : AppCompatActivity() {
                     tvFileName.text=httpsReferenceNameIntent1.toString()
                     mySpinner?.visibility=View.VISIBLE
                 }
-                Log.d("MyLog","urlIntent $urlIntent1")
+                //Log.d("MyLog","urlIntent $urlIntent1")
                 filename=httpsReferenceNameIntent1.toString()
-                Log.d("MyLog","httpsReferenceNameIntent $httpsReferenceNameIntent1")
+                //Log.d("MyLog","httpsReferenceNameIntent $httpsReferenceNameIntent1")
             }
 
             ivUser.setOnClickListener {
@@ -131,7 +137,7 @@ class NewEvent3 : AppCompatActivity() {
 
                 }
                 else {
-                    android.util.Log.d("MyLog","edUserName=null")
+                    //android.util.Log.d("MyLog","edUserName=null")
                     android.widget.Toast.makeText(
                         this@NewEvent3, com.wixsite.mupbam1.resume.ourwed.R.string.edUserNameEmpty, android.widget.Toast.LENGTH_LONG).show()
                 }
@@ -155,46 +161,23 @@ class NewEvent3 : AppCompatActivity() {
 
                     }
                     1->{weAre.child(weAre.push().key?:"blabla")
-                            .setValue(httpsReferenceNameIntent2)
-
-                        weArehttps.child(weArehttps.push().key?:"blabla")
-                            .setValue(urlIntent2)
-
+                            .setValue(Cards(urlIntent2,httpsReferenceNameIntent2))
                         onChangeListener(weAre)
-                        onChangeListener(weArehttps)
-
                     }
 
                     2->{acqRef.child(acqRef.push().key?:"blabla")
-                        .setValue(httpsReferenceNameIntent2)
-
-                        acqRefhttps.child(acqRefhttps.push().key?:"blabla")
-                        .setValue(urlIntent2)
-
+                        .setValue(Cards(urlIntent2,httpsReferenceNameIntent2))
                         onChangeListener(acqRef)
-                        onChangeListener(acqRefhttps)
-
                     }
 
                     3->{momentsRef.child(momentsRef.push().key?:"blabla")
-                        .setValue(httpsReferenceNameIntent2)
-
-                        momentsRefhttps.child(momentsRefhttps.push().key?:"blabla")
-                            .setValue(urlIntent2)
+                        .setValue(Cards(urlIntent2,httpsReferenceNameIntent2))
                         onChangeListener(momentsRef)
-                        onChangeListener(momentsRefhttps)
-
-
                     }
 
                     4->{vipsRef.child(vipsRef.push().key?:"blabla")
-                        .setValue(httpsReferenceNameIntent2)
-                        vipsRefhttps.child(vipsRefhttps.push().key?:"blabla")
-                            .setValue(urlIntent2)
+                        .setValue(Cards(urlIntent2,httpsReferenceNameIntent2))
                         onChangeListener(vipsRef)
-                        onChangeListener(vipsRefhttps)
-
-
                     }
                 }
             }
@@ -210,11 +193,20 @@ class NewEvent3 : AppCompatActivity() {
     private fun onChangeListener(myRef: DatabaseReference) {
         myRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                with(binding){
-                    var string1=snapshot.value.toString()
-                    Log.d("MyLog","RTDBvalue-$string1")
-                    startActivity(Intent(this@NewEvent3, RCImageView::class.java))
+
+                val list=ArrayList<Cards>()
+                for (s in snapshot.children){
+                    val card=s.getValue(Cards::class.java)
+                    if (card!=null)list.add(card)
                 }
+                startActivity(Intent(this@NewEvent3, RCImageView::class.java))
+                /*with(binding){
+                 var string1=snapshot.value.toString()
+                  //  myRef.setValue(User(auth.currentUser?.displayName,urlIntent2,httpsReferenceNameIntent2))
+
+                  Log.d("MyLog","RTDBvalue-$string1")
+                   startActivity(Intent(this@NewEvent3, RCImageView::class.java))
+                }*/
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -262,8 +254,6 @@ class NewEvent3 : AppCompatActivity() {
         btUpload.visibility=View.VISIBLE
         tvFileName.text=""
         mySpinner.visibility=View.GONE
-
-
     }
 
     private fun deleteImage(filename: String)= CoroutineScope(Dispatchers.IO).launch  {
@@ -275,7 +265,7 @@ class NewEvent3 : AppCompatActivity() {
                         Toast.LENGTH_LONG).show()
                 }
         } catch (e: Exception) {
-            Log.d("MyLog","delete3 $filename")
+            Log.d("MyLog","deleteError $filename")
             withContext(Dispatchers.Main) {
                 Toast.makeText(this@NewEvent3, e.message, Toast.LENGTH_LONG).show()
             }
@@ -290,7 +280,7 @@ class NewEvent3 : AppCompatActivity() {
                        withContext(Dispatchers.Main) {
                            Toast.makeText(this@NewEvent3, "Successfully uploaded image",
                               Toast.LENGTH_LONG).show()
-                           Log.d("MyLog","filename is $filename")
+                          // Log.d("MyLog","filename is $filename")
                        }
                  }
         } catch (e: Exception) {
@@ -319,11 +309,10 @@ class NewEvent3 : AppCompatActivity() {
          if(resultCode == Activity.RESULT_OK && requestCode == DialogConst.REQUEST_CODE_IMAGE_PICK) {
            data?.data?.let {
                curFile = it
-               Log.d("MyLog", "it-$it")
+               //Log.d("MyLog", "it-$it")
                binding.ivUser.setImageURI(it)
            }
          }
-
     }
 }
 

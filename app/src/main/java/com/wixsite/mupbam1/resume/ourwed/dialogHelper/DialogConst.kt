@@ -26,6 +26,10 @@ object DialogConst {
     const val eMoments="Памятные моменты"
     const val eVips="Те, кто очень важен для нас"
 
+    //ShowActivity
+    const val USER_FILE_NAME="USER_FILE_NAME"
+    const val USER_HTTPS="USER_HTTPS"
+
 
 
 

@@ -31,13 +31,15 @@ class RCImageView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rcimage_view)
 
-        var i=intent
+        /*var i=intent
         if (i!=null){
 
             var userAccountIntent1=i.getStringExtra("userAccountIntent")
         //urlIntent2=userIntent1.toString()
-        Log.d("MyLog","userAccountIntent1=$userAccountIntent1")
-        userAccountIntent2=userAccountIntent1.toString()}
+       // Log.d("MyLog","userAccountIntent1=$userAccountIntent1")
+        userAccountIntent2=userAccountIntent1.toString()
+            Log.d("MyLog","userAccountIntent2=$userAccountIntent2")
+        }*/
 
         listFiles()
     }
@@ -52,9 +54,6 @@ class RCImageView : AppCompatActivity() {
                 //urlIntent= url.toString()
                 //Log.d("MyLog", urlIntent)
                 imageUrls.add(url.toString())
-
-
-
             }
             withContext(Dispatchers.Main){
                 val imageAdapter=ImageAdapter(imageUrls, object : rcViewItemOnClickListner{
@@ -66,14 +65,12 @@ class RCImageView : AppCompatActivity() {
                             intent.putExtra("urlIntent", url.toString())
                             intent.putExtra("userAccountIntent2", userAccountIntent2)
 
-
                         startActivity(intent)
                     }
                 })
                 rcImageView.apply {
                     adapter=imageAdapter
                     layoutManager= GridLayoutManager(this@RCImageView,3)
-
                 }
             }
 
@@ -84,6 +81,5 @@ class RCImageView : AppCompatActivity() {
                 Log.d("MyLog","ERROR!!! $eMessage")
             }
         }
-
     }
 }

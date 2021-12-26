@@ -35,14 +35,6 @@
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
-            <TextView
-                android:id="@+id/tvFileNameCards"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

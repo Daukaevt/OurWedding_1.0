@@ -23,11 +23,12 @@ import com.google.firebase.auth.FirebaseUser
 import com.wixsite.mupbam1.resume.ourwed.databinding.ActivityMainBinding
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogConst
 import com.wixsite.mupbam1.resume.ourwed.dialogHelper.DialogHelper
+import io.ak1.pix.helpers.toast
 import kotlinx.android.synthetic.main.nav_header_mine.view.*
 import java.util.jar.Manifest
 
 
-class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+open class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var tvAccount:TextView
@@ -40,12 +41,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         setContentView(binding.root)
         registerPermissionListner()
         checkCameraPermission()
-
-
-
         init()
         //NewEvent()
-
     }
 
     private fun checkCameraPermission() {
@@ -61,10 +58,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     }
             else->{
                 permisLauncher.launch(android.Manifest.permission.CAMERA)
-
             }
         }
     }
+
     private fun registerPermissionListner(){
         permisLauncher=registerForActivityResult(ActivityResultContracts.RequestPermission()){
             if (it){
@@ -76,23 +73,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId==R.id.newEvent){
+        val notReg: String = getString(R.string.not_reg)
+        if (item.itemId==R.id.newEvent&&binding.navView.tvAccount.text.toString()!=notReg){
             //вернуть на NewEvent
             //Log.d("MyLog","Res-${R.drawable.image1}")
             val intent=Intent(this, NewEvent3::class.java)
                 .apply {
                     putExtra("userIntent", tvAccount.text.toString())
                 }
-
-//                var tvAccount=binding.navView.tvAccount.text
-//                Log.d("MyLog","tvAccount-$tvAccount")
-
-
-
-
             startActivity(intent)
+        }else{
+            Toast.makeText(this, notReg, Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -109,25 +101,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             try {
                 val account=task.getResult(ApiException::class.java)
                 if (account!=null){
-                    Log.d("MyLog","Api +$account")
+                    //Log.d("MyLog","Api +$account")
                     dialogHelper.accountHelper.signInFirebaseWithGoogle(account.idToken!!)
                 }
             }catch(e:ApiException){
                 Log.d("MyLog","Api error:${e.message}")
             }
         }
-//        if (resultCode== RESULT_OK&&data!=null){
-//            when(requestCode){
-//                DialogConst.httpsReferenceNameIntentCode->{
-                  //  httpsReferenceNameIntentMain= data.getStringExtra().toString()
-//                }
-//                DialogConst.urlIntentCode->{
-                   // urlIntentMain=data.getStringExtra().toString()
-//                }
-
-
-//            }
-//        }
     }
 
     override fun onStart() {
@@ -137,7 +117,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     fun init(){
         val iii=R.drawable.image1
-        Log.d("MyLog","image1- $iii")
+        //Log.d("MyLog","image1- $iii")
         setSupportActionBar(binding.mainContent.toolbar)
         val toggle=ActionBarDrawerToggle(
             this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
@@ -153,13 +133,12 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
             R.id.weAre->{
                 Toast.makeText(this, "Pressed weAre", Toast.LENGTH_LONG).show()
-//                val intent=Intent(this, rcCards::class.java).apply {
+                val intent=Intent(this,rcCards::class.java)
+             /*       .apply {
+                        putExtra("userIntent", tvAccount.text.toString())
+                    }*/
+                startActivity(intent)
 
-//                    var tvAccount=binding.navView.tvAccount.text
-//                    Log.d("MyLog","tvAccount-$tvAccount")
-//                    putExtra("userlIntent", tvAccount.toString())
-
-//                }
 
             }
             R.id.acqnts->{
@@ -205,6 +184,5 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }else{
             user.email
         }
-
     }
 }
