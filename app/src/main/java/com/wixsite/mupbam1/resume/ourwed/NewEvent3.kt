@@ -314,5 +314,12 @@ class NewEvent3 : AppCompatActivity() {
            }
          }
     }
+
+    fun onClickSwitch(view: android.view.View) {
+        val intent=Intent(this@NewEvent3, MainActivity::class.java)
+        //intent.putExtra("userAccountIntent", userIntentAccount1)
+        startActivity(intent)
+
+    }
 }
 

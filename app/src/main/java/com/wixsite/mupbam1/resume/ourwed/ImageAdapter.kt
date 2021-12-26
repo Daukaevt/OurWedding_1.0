@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.image_rnd.view.*
 
 
 
-class ImageAdapter(val urls: List<String>, private val onClickListner: rcViewItemOnClickListner):RecyclerView.Adapter<ImageAdapter.ImageViewHolder>(){
+class ImageAdapter(val urls:List<String>
+    ,private val onClickListner:rcViewItemOnClickListner):RecyclerView.Adapter<ImageAdapter.ImageViewHolder>(){
 
 
     inner class ImageViewHolder(itemView : View):RecyclerView.ViewHolder(itemView){

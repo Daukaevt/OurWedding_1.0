@@ -6,27 +6,45 @@
     android:layout_height="wrap_content"
     android:background="@color/salad">
 
-    <TextView
-        android:id="@+id/tvShowFileName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvShowHttp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/tvShowFileName"
-        app:layout_constraintStart_toStartOf="@+id/tvShowFileName"
-        app:layout_constraintTop_toBottomOf="@+id/tvShowFileName" />
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    />
+    <ImageView
+        android:id="@+id/ivPic"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="8dp"
+
+
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvShowHttp"
+        app:layout_constraintStart_toStartOf="@+id/tvShowHttp"
+        app:layout_constraintTop_toBottomOf="@+id/tvShowHttp"
+        app:srcCompat="@drawable/image1" />
+
+    <TextView
+        android:id="@+id/tvShowFileName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvShowHttp"
+        app:layout_constraintStart_toStartOf="@+id/tvShowHttp"
+        app:layout_constraintTop_toBottomOf="@+id/ivPic" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,7 +61,7 @@ class RCImageView : AppCompatActivity() {
                         val httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(url.toString())
                         val intent=Intent(this@RCImageView, NewEvent3::class.java)
 
-                            intent.putExtra("httpsReferenceNameIntent", "$userAccountIntent2: ${httpsReference.name}")
+                            intent.putExtra("httpsReferenceNameIntent", "$userAccountIntent2 ${httpsReference.name}")
                             intent.putExtra("urlIntent", url.toString())
                             intent.putExtra("userAccountIntent2", userAccountIntent2)
 
