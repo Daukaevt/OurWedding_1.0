@@ -30,17 +30,6 @@ class RCImageView : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rcimage_view)
-
-        /*var i=intent
-        if (i!=null){
-
-            var userAccountIntent1=i.getStringExtra("userAccountIntent")
-        //urlIntent2=userIntent1.toString()
-       // Log.d("MyLog","userAccountIntent1=$userAccountIntent1")
-        userAccountIntent2=userAccountIntent1.toString()
-            Log.d("MyLog","userAccountIntent2=$userAccountIntent2")
-        }*/
-
         listFiles()
     }
 
@@ -48,11 +37,8 @@ class RCImageView : AppCompatActivity() {
         try {
             val images=imageRef.child("images/").listAll().await()
             val imageUrls= mutableListOf<String>()
-
             for (image in images.items){
                 val url=image.downloadUrl.await()
-                //urlIntent= url.toString()
-                //Log.d("MyLog", urlIntent)
                 imageUrls.add(url.toString())
             }
             withContext(Dispatchers.Main){
@@ -73,7 +59,6 @@ class RCImageView : AppCompatActivity() {
                     layoutManager= GridLayoutManager(this@RCImageView,3)
                 }
             }
-
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 Toast.makeText(this@RCImageView, e.message, Toast.LENGTH_LONG).show()

@@ -30,6 +30,15 @@ object DialogConst {
     const val USER_FILE_NAME="USER_FILE_NAME"
     const val USER_HTTPS="USER_HTTPS"
 
+    //for intents
+    const val MainIntent="MainIntent"
+    const val Gallery="gallery"
+    const val WeAre="weAre"
+    const val Acquaintance="acquaintance"
+    const val Moments="moments"
+    const val Vips="vips"
+
+
 
 
 

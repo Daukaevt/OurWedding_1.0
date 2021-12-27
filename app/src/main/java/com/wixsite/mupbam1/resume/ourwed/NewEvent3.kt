@@ -56,9 +56,6 @@ class NewEvent3 : AppCompatActivity() {
     var httpsReferenceNameIntent2=""
     var userIntentAccount2=""
     lateinit var auth: FirebaseAuth
-
-
-
     val imageRef = Firebase.storage.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,18 +63,10 @@ class NewEvent3 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val database = Firebase.database("https://ourwed-c2a46-default-rtdb.europe-west1.firebasedatabase.app")
-        val weAre = database.getReference("weAre")
-       // val weArehttps = database.getReference("weArehttps")
-        val acqRef = database.getReference("acquaintance")
-       // val acqRefhttps = database.getReference("acquaintancehttps")
-        val momentsRef = database.getReference("moments")
-       // val momentsRefhttps = database.getReference("momentshttps")
-        val vipsRef = database.getReference("vips")
-     //   val vipsRefhttps = database.getReference("vipshttps")
-        //val myRef=database.getReference("weAre")
-
-        //myRef.setValue("Hello, hello, hello!")
-        // Write a message to the database
+        val weAre = database.getReference(DialogConst.WeAre)
+        val acqRef = database.getReference(DialogConst.Acquaintance)
+        val momentsRef = database.getReference(DialogConst.Moments)
+        val vipsRef = database.getReference(DialogConst.Vips)
 
         with(binding){
             vis()
@@ -85,18 +74,6 @@ class NewEvent3 : AppCompatActivity() {
             auth = Firebase.auth
             var i=intent
             if (i!=null){
-
-                //var userIntent1=i.getStringExtra("userIntent")
-                //urlIntent2=userIntent1.toString()
-                //Log.d("MyLog","userAccountIntent=$userIntent1")
-               // userIntentAccount1=userIntent1.toString()
-
-
-                //var userIntent2=i.getStringExtra("userAccountIntent2")
-                //userIntentAccount1=userIntent2.toString()
-                //urlIntent2=userIntent1.toString()
-                //Log.d("MyLog","userAccountIntent2=$userIntent2")
-
 
                 var urlIntent1=i.getCharSequenceExtra("urlIntent")
                 urlIntent2=urlIntent1.toString()
@@ -114,7 +91,6 @@ class NewEvent3 : AppCompatActivity() {
                 }
                 //Log.d("MyLog","urlIntent $urlIntent1")
                 filename=httpsReferenceNameIntent1.toString()
-                //Log.d("MyLog","httpsReferenceNameIntent $httpsReferenceNameIntent1")
             }
 
             ivUser.setOnClickListener {
@@ -184,9 +160,7 @@ class NewEvent3 : AppCompatActivity() {
         }
     }
 
-
     override fun onBackPressed() {
-
         finish()
     }
 
@@ -200,13 +174,6 @@ class NewEvent3 : AppCompatActivity() {
                     if (card!=null)list.add(card)
                 }
                 startActivity(Intent(this@NewEvent3, RCImageView::class.java))
-                /*with(binding){
-                 var string1=snapshot.value.toString()
-                  //  myRef.setValue(User(auth.currentUser?.displayName,urlIntent2,httpsReferenceNameIntent2))
-
-                  Log.d("MyLog","RTDBvalue-$string1")
-                   startActivity(Intent(this@NewEvent3, RCImageView::class.java))
-                }*/
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -240,7 +207,6 @@ class NewEvent3 : AppCompatActivity() {
                    3->btGallery.text=DialogConst.eMoments
                    4->btGallery.text=DialogConst.eVips
                }
-               //Log.d("MyLog","SItem-${personNames[position]}")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -280,7 +246,6 @@ class NewEvent3 : AppCompatActivity() {
                        withContext(Dispatchers.Main) {
                            Toast.makeText(this@NewEvent3, "Successfully uploaded image",
                               Toast.LENGTH_LONG).show()
-                          // Log.d("MyLog","filename is $filename")
                        }
                  }
         } catch (e: Exception) {
@@ -309,7 +274,6 @@ class NewEvent3 : AppCompatActivity() {
          if(resultCode == Activity.RESULT_OK && requestCode == DialogConst.REQUEST_CODE_IMAGE_PICK) {
            data?.data?.let {
                curFile = it
-               //Log.d("MyLog", "it-$it")
                binding.ivUser.setImageURI(it)
            }
          }
@@ -317,9 +281,7 @@ class NewEvent3 : AppCompatActivity() {
 
     fun onClickSwitch(view: android.view.View) {
         val intent=Intent(this@NewEvent3, MainActivity::class.java)
-        //intent.putExtra("userAccountIntent", userIntentAccount1)
         startActivity(intent)
-
     }
 }
 

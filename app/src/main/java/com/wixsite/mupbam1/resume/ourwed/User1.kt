@@ -5,7 +5,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class User1(
-    //val userName:String?=null,
     val imageName:String?=null,
     val imageHttps:String?=null
 

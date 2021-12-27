@@ -35,6 +35,7 @@ open class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
     private val dialogHelper=DialogHelper(this)
     val mAuth=FirebaseAuth.getInstance()
     private lateinit var permisLauncher:ActivityResultLauncher<String>
+    lateinit var dbRefIntent:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
@@ -42,7 +43,6 @@ open class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         registerPermissionListner()
         checkCameraPermission()
         init()
-        //NewEvent()
     }
 
     private fun checkCameraPermission() {
@@ -117,7 +117,6 @@ open class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
 
     fun init(){
         val iii=R.drawable.image1
-        //Log.d("MyLog","image1- $iii")
         setSupportActionBar(binding.mainContent.toolbar)
         val toggle=ActionBarDrawerToggle(
             this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
@@ -131,24 +130,17 @@ open class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
 
-            R.id.weAre->{
-                Toast.makeText(this, "Pressed weAre", Toast.LENGTH_LONG).show()
-                val intent=Intent(this,rcCards::class.java)
-             /*       .apply {
-                        putExtra("userIntent", tvAccount.text.toString())
-                    }*/
-                startActivity(intent)
-
-
+            R.id.weAre->{dbRefIntent=DialogConst.WeAre
+                dbRefIntentFun(dbRefIntent)
             }
-            R.id.acqnts->{
-                Toast.makeText(this, "Pressed acqnts", Toast.LENGTH_LONG).show()
+            R.id.acqnts->{dbRefIntent=DialogConst.Acquaintance
+                dbRefIntentFun(dbRefIntent)
             }
-            R.id.mmts->{
-                Toast.makeText(this, "Pressed mmts", Toast.LENGTH_LONG).show()
+            R.id.mmts->{dbRefIntent=DialogConst.Moments
+                dbRefIntentFun(dbRefIntent)
             }
-            R.id.vips->{
-                Toast.makeText(this, "Pressed vips", Toast.LENGTH_LONG).show()
+            R.id.vips->{dbRefIntent=DialogConst.Vips
+                dbRefIntentFun(dbRefIntent)
             }
             R.id.`where`->{
                 Toast.makeText(this, "Pressed where", Toast.LENGTH_LONG).show()
@@ -176,6 +168,15 @@ open class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun dbRefIntentFun(i:String) {
+        Toast.makeText(this, "Pressed ${i}", Toast.LENGTH_LONG).show()
+        val intent=Intent(this,rcCards::class.java)
+            .apply {
+                putExtra(DialogConst.MainIntent, i)
+            }
+        startActivity(intent)
     }
 
     fun uiUpdate(user:FirebaseUser?){
